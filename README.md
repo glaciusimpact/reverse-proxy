@@ -92,7 +92,7 @@ rtt min/avg/max/mdev = 0.242/0.245/0.248/0.003 ms
 tcm@server:~$
 ```
 
--> There are 2 interfaces (enp0s3 for 192.168.1.0/24 and 10.0.2.0/24) and ping to web server is OK.
+-> There are 2 interfaces (enp0s3 for 192.168.1.0/24 and enp0s8 for 10.0.2.0/24) and ping to web server is OK.
 
 # 3 - Checking Caddy is running
 
@@ -169,11 +169,11 @@ tcm@server:~$ cat /etc/caddy/Caddyfile
 tcm@server:~$ 
 ```
 
--> Prowy server is running ("active (running)") but the default configuration must be modified since it is configured as a web server.
+-> Proxy server is running ("active (running)") but the default configuration must be modified since it is configured as a web server.
 
 # 4 - Configuring Caddy as a reverse proxy
 
-We configure Caddy as a reverse proxy now. To do so we modify the configuration file which is /etc/caddy/Caddyfile. ":4444" is the local host TCP port used by the reverse proxy to accept requests from clients. "10.0.2.19:8000" specifies the IP address and the TCP port used by the web server that the reverse proxy will redirect to if allowed. Look at how simple is this configuration.
+We configure Caddy as a reverse proxy now. To do so we modify the configuration file which is /etc/caddy/Caddyfile. In the configuration bellow ":4444" is the local host TCP port used by the reverse proxy to accept requests from clients. "10.0.2.19:8000" specifies the IP address and the TCP port used by the web server that the reverse proxy will redirect to (if allowed). Look at how simple is this configuration.
 
 ```
 sudo cp /etc/caddy/Caddyfile /etc/caddy/Caddyfile.bak
@@ -205,7 +205,7 @@ Configuration of /etc/caddy/Caddyfile:
 
 # 5 - Restarting Caddy configuration to apply it
 
-Then we restart the reverse proxy (which is a linux linux daemon/service by the way) to apply the configuration and we check the TCP port is listening.
+Then we restart the reverse proxy (which is a Linux daemon/service by the way) to apply the configuration and we check the TCP port is listening.
 
 ```
 sudo systemctl reload caddy
