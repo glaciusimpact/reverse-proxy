@@ -193,6 +193,7 @@ Configuration of /etc/caddy/Caddyfile:
 :4444 {
 	reverse_proxy 10.0.2.19:8000
 }
+```
 
 # 5 - Restarting Caddy configuration to apply it
 
