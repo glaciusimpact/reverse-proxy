@@ -18,13 +18,17 @@ A reverse proxy is useful for a web server because it improves:
 
 Here is the commun situation of a reverse proxy usage:
 
- ![Reverse proxy diagram](images/reverse_proxy_commun_usage.png)
+![Reverse proxy diagram](images/reverse_proxy_commun_usage.png)
 
 # Lab architecture
 
-The lab will use VMs. The reverse proxy will use TCP port 4444 to requests from clients whereas the web server will use a TCP port 8000 for HTTP request. The architecture and the IP addresses of the test lab will be as follow:
+The lab will use VMs. The reverse proxy will use TCP port 4444 to requests from clients whereas the web server will use a TCP port 8000 for HTTP request.
 
- ![Reverse proxy lab](images/reverse_proxy_lab.png)
+The architecture and the IP addresses of the test lab will be as follow:
+
+![Reverse proxy lab](images/reverse_proxy_lab.png)
+
+
 
 # 1 - Installing Caddy on an Ubuntu server
 
@@ -380,6 +384,19 @@ We can clearly see the "buffer" effect of the reverse proxy:
 
 # 8 - URL filtering and IP address blocking
 
+So far every HTTP requests on the TCP port 4444 are sent to the web server. We can improve security a bit more using 2 features of the reverse proxy.
+
+Thus here we want:
+- that wrong URLs (like in a URL scanning) are not reaching the web server
+
+![Reverse proxy URL filtering](images/reverse_proxy_url_filtering.png)
+
+- that known malicious IP are blocked
+
+![Reverse proxy IP addresses blocked](images/reverse_proxy_ip_addresses_blocked.png)
+
+Please not that usually we block external IP addresses using a firewall. The IP address blocking here is just another way to achieve the same goal.
+
 ## 8 - 1 Configuration
 
 With the current configuration it is possible to read everything on the web server. It might be more secure to filter the URL to only some of them.
@@ -560,7 +577,8 @@ tcm@server:~$
 
 # Investigating further...
 
-The reverse proxy has been installed. If you have enjoyed the investigating part with tcpdump and want to improve your network investigation skills (tcpdump and wireshark) you can join the TCM Security Operations (SOC) 101 course by Andrew Prince.
+The reverse proxy has been installed. If you have enjoyed the investigating part with tcpdump and want to improve your network investigation skills (tcpdump and Wireshark) you can join the TCM Security Operations (SOC) 101 course by Andrew Prince.
 
 Link to TCM Security Operations (SOC) 101 course:
+
 https://academy.tcm-sec.com/p/Security-Operations-SOC-101
