@@ -421,7 +421,7 @@ Thus here we want:
 
 ![Reverse proxy IP addresses blocked](images/reverse_proxy_ip_addresses_blocked.png)
 
-Please not that usually we block external IP addresses using a firewall. The IP address blocking here is just another way to achieve the same goal.
+Please note that usually we block external IP addresses using a firewall. The IP address blocking function here is just another way to achieve the same goal.
 
 ## 8 - 1 Configuration
 
