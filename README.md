@@ -4,7 +4,7 @@
 
 Here is what you will learn:
 - installing a reverse proxy (Caddy) on a Linux server
-- filtering URLs so that unexpected traffic will not reaches the web server
+- filtering URLs so that unexpected traffic will not reach the web server
 - filtering client IP addresses
 - validating the protection of your web server investigating with tcpdump
 
