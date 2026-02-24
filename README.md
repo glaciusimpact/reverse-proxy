@@ -280,7 +280,7 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 
 ```
 
-# 7 - A client request to the reverse proxy
+# 7 - Sending a client request to the reverse proxy
 
 It's time now to verify that an HTTP request can reach the web server via the reverse proxy. From another computer with an IP address in the same network as the external network of the reverse proxy (192.168.1.0/24), we can use curl or any web browser to test the reverse proxy:
 
