@@ -30,9 +30,9 @@ The architecture and the IP addresses of the test lab will be as follow:
 
 
 
-# 1 - Installing Caddy on an Ubuntu server
+# 1 - Installing Caddy on a Ubuntu server
 
-We install the reverse proxy server called Caddy on an Ubuntu server equipped with 2 separate network interfaces. I chose this software since it is very simple to configure. Its documentation can be found at https://caddyserver.com/docs/install.
+We install the reverse proxy server called Caddy on a Ubuntu server equipped with 2 separate network interfaces. I chose this software since it is very simple to configure. Its documentation can be found at https://caddyserver.com/docs/install.
 
 Following commands are to copy paste to the bash interpreter of the Ubuntu server:
  
