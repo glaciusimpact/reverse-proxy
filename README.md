@@ -465,10 +465,17 @@ sudo systemctl reload caddy
 
 ## 8 - 2 Testing configuration
 
+Now let's test that filtering is correctly applied.
+
 ### a) Test of the URLs
 
+To check the URL filtering 2 paths will be tested:
 - /text/
 - /snap/
+
+The first one is correct and the second one is wrong and should be blocked.
+
+Here are the 2 requests:
 
 ``` powershell
 PS D:\> curl http://192.168.1.53:4444/text/
@@ -533,7 +540,7 @@ PS D:\>
 - /text/ is allowed
 - /snap/ is blocked
 
-Let's see tcpdump on the second URL (/snap/):
+Good. Let's see frames with tcpdump for the second URL (/snap/):
 
 ``` bash
 tcm@server:~$ sudo tcpdump -i any -n port 4444 or port 8000
@@ -558,7 +565,7 @@ tcm@server:~$
 
 -> We clearly see that there is no stream going to the web server (10.0.2.19).
 
-web server shows only the request of the allowed URL (nothing about /snap/):
+On the web server message we can see only the request of the allowed URL /text/ (but nothing about /snap/):
 
 ``` bash
 10.0.2.18 - - [21/Feb/2026 18:06:26] "GET /text/ HTTP/1.1" 200 -
@@ -566,9 +573,9 @@ web server shows only the request of the allowed URL (nothing about /snap/):
 
 ### b) Testing blocked IP address
 
-Using IP address 192.168.1.95 I try to reach the web server (at /). Curl informs the connection has been closed.
+Using IP address 192.168.1.95 I try to reach the web server (at /). The URL is correct but the IP address is one of the forbidden IP addresses by the reverse proxy (i.e network range 17.0.0.0/8 and 192.168.1.95). Curl informs the connection has been closed which seems fine.
 
-Let's see what tcpdump says:
+Let's investigate using again tcpdump:
 
 ``` bash
 tcm@server:~$ sudo tcpdump -i any -n port 4444 or port 8000
@@ -600,6 +607,8 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 0 packets dropped by kernel
 tcm@server:~$
 ```
+
+-> Once again We clearly see that there is no stream going to the web server (10.0.2.19).
 
 # Investigating further...
 
