@@ -243,7 +243,7 @@ tcp6       0      0 :::4444                 :::*                    LISTEN
 tcm@server:~$
 ```
 
--> LISTEN state: that's good.
+-> LISTEN state on TCP port 4444: the reverse proxy is running on the correct port. That's good.
 
 # 6 - Running the web server on the other server
 
@@ -282,7 +282,7 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 
 # 7 - A client request to the reverse proxy
 
-It's now time to verify that an HTTP request can reach the web server via the reverse proxy. From a client, we can use curl or any web browser to test the reverse proxy:
+It's now time to verify that an HTTP request can reach the web server via the reverse proxy. From another computer with an IP address in the same network as the external network of the reverse proxy (192.168.1.0/24), we can use curl or any web browser to test the reverse proxy:
 
 ```
 curl http://192.168.1.53:4444
@@ -334,14 +334,14 @@ RawContentLength  : 2011
 PS D:\>
 ```
 
--> We get the answer of the web server:
+-> Good! We get the following answer from the web server:
 
 ```
 Server: SimpleHTTP/0.6 Python/3.12.3
 Via: 1.0 Caddy
 ```
 
-On the web server we can see:
+On the web server we can see the connection of this client:
 
 ``` bash
 ice@iceberg:~$ python3 -m http.server
@@ -350,7 +350,7 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 
 ```
 
-Using tcpdump on reverse proxy server we have this captured traffic:
+To observe the traffic between the reverse proxy server and the client, as well as the web server, we can use tcpdump. Here is the captured traffic:
 
 ``` bash
 tcm@server:~$ sudo tcpdump -i any -n port 4444 or port 8000
