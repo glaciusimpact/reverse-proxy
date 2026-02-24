@@ -573,7 +573,7 @@ On the web server message we can see only the request of the allowed URL /text/ 
 
 ### b) Testing blocked IP address
 
-Using IP address 192.168.1.95 I try to reach the web server (at /). The URL is correct but the IP address is one of the forbidden IP addresses by the reverse proxy (i.e network range 17.0.0.0/8 and 192.168.1.95). Curl informs the connection has been closed which seems fine.
+Using IP address 192.168.1.95 I tried to reach the web server (at /). The URL is correct but the IP address is one of the forbidden IP addresses by the reverse proxy (i.e network range 17.0.0.0/8 and 192.168.1.95). Curl tells us the connection has been closed which seems fine.
 
 Let's investigate using again tcpdump:
 
