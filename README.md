@@ -1,12 +1,12 @@
- ![Reverse proxy](images/reverse_proxy_first_picture.png)
+![Reverse proxy](images/reverse_proxy_first_picture.png)
 
-# Objective: installation of a reverse proxy to protect a Web server
+# Objective: To install a reverse proxy to protect a web server
 
 Here is what you will learn:
-- installation a reverse proxy with Caddy
-- filtering URL so that not all unexpected traffic reaches the Web server
+- installation a reverse proxy (Caddy) on Linux
+- filtering URL so that not all unexpected traffic reaches the web server
 - filtering client IP addresses
-- validation the protection of your Web server with tcpdump
+- validation the protection of your web server with tcpdump
 
 # Why use a reverse proxy?
 
@@ -22,7 +22,7 @@ Here is the commun situation of a reverse proxy usage:
 
 # Lab architecture
 
-The lab will use VMs. The reverse proxy will use TCP port 4444 to requests from clients whereas the Web server will use a TCP port 8000 for HTTP request. The architecture and the IP addresses of the test lab will be as follow:
+The lab will use VMs. The reverse proxy will use TCP port 4444 to requests from clients whereas the web server will use a TCP port 8000 for HTTP request. The architecture and the IP addresses of the test lab will be as follow:
 
  ![Reverse proxy lab](images/reverse_proxy_lab.png)
 
@@ -44,7 +44,7 @@ sudo apt install caddy
 
 # 2 - Checking the Caddy server parameters 
 
-We check now the network parameters of the proxy server and we ping the Web server from the proxy server to check connectivity.
+We check now the network parameters of the proxy server and we ping the web server from the proxy server to check connectivity.
 
 ```
 ip a
@@ -165,7 +165,7 @@ tcm@server:~$
 
 # 4 - Configuring Caddy as a reverse proxy
 
-We configure Caddy as a reverse proxy now. To do so we modify the configuration file which is /etc/caddy/Caddyfile. ":4444" is the local host TCP port used by the reverse proxy to accept requests from clients. "10.0.2.19:8000" specifies the IP address and the TCP port used by the Web server that the reverse proxy will redirect to if allowed. Look at how simple is this configuration.
+We configure Caddy as a reverse proxy now. To do so we modify the configuration file which is /etc/caddy/Caddyfile. ":4444" is the local host TCP port used by the reverse proxy to accept requests from clients. "10.0.2.19:8000" specifies the IP address and the TCP port used by the web server that the reverse proxy will redirect to if allowed. Look at how simple is this configuration.
 
 ```
 sudo cp /etc/caddy/Caddyfile /etc/caddy/Caddyfile.bak
@@ -237,9 +237,9 @@ tcm@server:~$
 
 -> LISTEN state: that's good.
 
-# 6 - Running the Web server on the other server
+# 6 - Running the web server on the other server
 
-The Web server will be a very simple one made with python. It does not need to be complicated for this lab. Feel free to change for another if you want (nginx, apache, a second Caddy, etc.).
+The web server will be a very simple one made with python. It does not need to be complicated for this lab. Feel free to change for another if you want (nginx, apache, a second Caddy, etc.).
 
 ```
 python3 -m http.server
@@ -326,14 +326,14 @@ RawContentLength  : 2011
 PS D:\>
 ```
 
--> We get the answer of the Web server:
+-> We get the answer of the web server:
 
 ```
 Server: SimpleHTTP/0.6 Python/3.12.3
 Via: 1.0 Caddy
 ```
 
-On the Web server we can see:
+On the web server we can see:
 
 ``` bash
 ice@iceberg:~$ python3 -m http.server
@@ -376,23 +376,23 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 We can clearly see the "buffer" effect of the reverse proxy:
 
 1. First: exchange between client and reverse proxy (the 5 first frames on enp0s3 are in 192.168.1.0/24)
-2. Second: then exchange between reverse proxy and Web server (frame 6 to 16 on enp0s8 are in 10.0.2.0/24)
+2. Second: then exchange between reverse proxy and web server (frame 6 to 16 on enp0s8 are in 10.0.2.0/24)
 
 # 8 - URL filtering and IP address blocking
 
 ## 8 - 1 Configuration
 
-With the current configuration it is possible to read everything on the Web server. It might be more secure to filter the URL to only some of them.
+With the current configuration it is possible to read everything on the web server. It might be more secure to filter the URL to only some of them.
 
 Here we will filter to allow access only on:
 - All IP addresses except:
 	- 1 IP address range (17.0.0.0/8)
 	- 1 IP address (192.168.1.95)
 - 2 URLs
-	- root of the Web server ("/")
+	- root of the web server ("/")
 	- a specific folder and all its content ("/text/\*")
 
-All the other locations on the Web server will be unreacheable (packets will not be forwarded).
+All the other locations on the web server will be unreacheable (packets will not be forwarded).
 
 New configuration of /etc/caddy/Caddyfile:
 
@@ -408,7 +408,7 @@ New configuration of /etc/caddy/Caddyfile:
 	# Filter blocked IP addresses
 	abort @blocked
 
-	# Web server URL allowed. Rest does not reach the Web server
+	# web server URL allowed. Rest does not reach the web server
 	reverse_proxy / 10.0.2.19:8000
 	reverse_proxy /text/* 10.0.2.19:8000
 }
@@ -485,7 +485,7 @@ RawContentLength  : 0
 PS D:\>
 ```
 
-->
+-> We get:
 
 - /text/ is allowed
 - /snap/ is blocked
@@ -513,9 +513,9 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 tcm@server:~$ 
 ```
 
--> We clearly see that there is no stream going to the Web server (10.0.2.19).
+-> We clearly see that there is no stream going to the web server (10.0.2.19).
 
-Web server shows only the request of the allowed URL (nothing about /snap/):
+web server shows only the request of the allowed URL (nothing about /snap/):
 
 ``` bash
 10.0.2.18 - - [21/Feb/2026 18:06:26] "GET /text/ HTTP/1.1" 200 -
@@ -523,7 +523,7 @@ Web server shows only the request of the allowed URL (nothing about /snap/):
 
 ### b) Testing blocked IP address
 
-Using IP address 192.168.1.95 I try to reach the Web server (at /). Curl informs the connection has been closed.
+Using IP address 192.168.1.95 I try to reach the web server (at /). Curl informs the connection has been closed.
 
 Let's see what tcpdump says:
 
@@ -558,3 +558,9 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 tcm@server:~$
 ```
 
+# Investigating further...
+
+The reverse proxy has been installed. If you have enjoyed the investigating part with tcpdump and want to improve your network investigation skills (tcpdump and wireshark) you can join the TCM Security Operations (SOC) 101 course by Andrew Prince.
+
+Link to TCM Security Operations (SOC) 101 course:
+https://academy.tcm-sec.com/p/Security-Operations-SOC-101
