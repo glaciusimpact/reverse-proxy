@@ -437,7 +437,7 @@ Here we will filter to allow access only on:
 
 All the other locations on the web server will be unreacheable (packets will not be forwarded).
 
-New configuration of /etc/caddy/Caddyfile:
+The new configuration of /etc/caddy/Caddyfile is:
 
 ```
 :4444 {
@@ -608,11 +608,11 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 tcm@server:~$
 ```
 
--> Once again We clearly see that there is no stream going to the web server (10.0.2.19).
+-> Once again we clearly see that there is no stream going to the web server (no packet with IP address 10.0.2.19).
 
 # Investigating further...
 
-The reverse proxy has been installed. If you have enjoyed the investigating part with tcpdump and want to improve your network investigation skills (tcpdump and Wireshark) you can join the TCM Security Operations (SOC) 101 course by Andrew Prince.
+The reverse proxy has been installed. If you have enjoyed the investigating part with tcpdump and want to improve your network investigation skills (tcpdump and Wireshark) you can join the TCM Security Operations (SOC) 101 course made by Andrew Prince.
 
 Link to TCM Security Operations (SOC) 101 course:
 
