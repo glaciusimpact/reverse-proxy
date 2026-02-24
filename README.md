@@ -6,7 +6,7 @@ Here is what you will learn:
 - installation of a reverse proxy (Caddy) on a Linux server
 - filtering URLs so that unexpected traffic will not reaches the web server
 - filtering client IP addresses
-- validation of the protection of your web server with tcpdump
+- validation of the protection of your web server investigating with tcpdump
 
 # Why use a reverse proxy?
 
@@ -32,9 +32,9 @@ The architecture and the IP addresses of the test lab will be as follow:
 
 # 1 - Installing Caddy on an Ubuntu server
 
-We are installing the reverse proxy server called Caddy. I chose this software since it is very simple to configure. Its documentation can be found at https://caddyserver.com/docs/install.
+We install the reverse proxy server called Caddy on an Ubuntu server equipped with 2 separate network interfaces. I chose this software since it is very simple to configure. Its documentation can be found at https://caddyserver.com/docs/install.
 
-Following commands are to copy paste to the bash interpreter of Ubuntu:
+Following commands are to copy paste to the bash interpreter of a Ubuntu server:
  
 ```
 sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
