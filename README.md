@@ -3,10 +3,10 @@
 # Objective: To install a reverse proxy to protect a web server
 
 Here is what you will learn:
-- installation of a reverse proxy (Caddy) on a Linux server
+- installing a reverse proxy (Caddy) on a Linux server
 - filtering URLs so that unexpected traffic will not reaches the web server
 - filtering client IP addresses
-- validation of the protection of your web server investigating with tcpdump
+- validating the protection of your web server investigating with tcpdump
 
 # Why use a reverse proxy?
 
