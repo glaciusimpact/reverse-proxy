@@ -433,7 +433,7 @@ Here we will filter to allow access only on:
 	- 1 IP address (192.168.1.95)
 - 2 URLs
 	- root of the web server ("/")
-	- a specific folder and all its content ("/text/\*")
+	- a specific directory and all its content ("/text/\*")
 
 All the other locations on the web server will be unreacheable (packets will not be forwarded).
 
