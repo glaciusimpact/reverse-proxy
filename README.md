@@ -384,7 +384,29 @@ listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144
 We can clearly see the "buffer" effect of the reverse proxy:
 
 1. First: exchange between client and reverse proxy (the 5 first frames on enp0s3 are in 192.168.1.0/24)
+```
+16:10:55.658091 enp0s3 In  IP 192.168.1.3.57238 > 192.168.1.53.4444: Flags [S], seq 2490883948, win 65535, options [mss 1460,nop,wscale 8,nop,nop,sackOK], length 0
+16:10:55.658120 enp0s3 Out IP 192.168.1.53.4444 > 192.168.1.3.57238: Flags [S.], seq 403319681, ack 2490883949, win 64240, options [mss 1460,nop,nop,sackOK,nop,wscale 9], length 0
+16:10:55.658253 enp0s3 In  IP 192.168.1.3.57238 > 192.168.1.53.4444: Flags [.], ack 1, win 255, length 0
+16:10:55.658459 enp0s3 In  IP 192.168.1.3.57238 > 192.168.1.53.4444: Flags [P.], seq 1:163, ack 1, win 255, length 162
+16:10:55.658468 enp0s3 Out IP 192.168.1.53.4444 > 192.168.1.3.57238: Flags [.], ack 163, win 126, length 0
+```
+
 2. Second: then exchange between reverse proxy and web server (frame 6 to 16 on enp0s8 are in 10.0.2.0/24)
+```
+16:10:55.658654 enp0s8 Out IP 10.0.2.18.48006 > 10.0.2.19.8000: Flags [S], seq 1608915185, win 64240, options [mss 1460,sackOK,TS val 635704630 ecr 0,nop,wscale 9], length 0
+16:10:55.658889 enp0s8 In  IP 10.0.2.19.8000 > 10.0.2.18.48006: Flags [S.], seq 322986055, ack 1608915186, win 65160, options [mss 1460,sackOK,TS val 3775773465 ecr 635704630,nop,wscale 9], length 0
+16:10:55.658904 enp0s8 Out IP 10.0.2.18.48006 > 10.0.2.19.8000: Flags [.], ack 1, win 126, options [nop,nop,TS val 635704631 ecr 3775773465], length 0
+16:10:55.658983 enp0s8 Out IP 10.0.2.18.48006 > 10.0.2.19.8000: Flags [P.], seq 1:270, ack 1, win 126, options [nop,nop,TS val 635704631 ecr 3775773465], length 269
+16:10:55.659081 enp0s8 In  IP 10.0.2.19.8000 > 10.0.2.18.48006: Flags [.], ack 270, win 127, options [nop,nop,TS val 3775773465 ecr 635704631], length 0
+16:10:55.660134 enp0s8 In  IP 10.0.2.19.8000 > 10.0.2.18.48006: Flags [P.], seq 1:157, ack 270, win 127, options [nop,nop,TS val 3775773466 ecr 635704631], length 156
+16:10:55.660134 enp0s8 In  IP 10.0.2.19.8000 > 10.0.2.18.48006: Flags [.], seq 157:1605, ack 270, win 127, options [nop,nop,TS val 3775773466 ecr 635704631], length 1448
+16:10:55.660148 enp0s8 Out IP 10.0.2.18.48006 > 10.0.2.19.8000: Flags [.], ack 157, win 126, options [nop,nop,TS val 635704632 ecr 3775773466], length 0
+16:10:55.660158 enp0s8 Out IP 10.0.2.18.48006 > 10.0.2.19.8000: Flags [.], ack 1605, win 132, options [nop,nop,TS val 635704632 ecr 3775773466], length 0
+16:10:55.660186 enp0s8 In  IP 10.0.2.19.8000 > 10.0.2.18.48006: Flags [FP.], seq 1605:2168, ack 270, win 127, options [nop,nop,TS val 3775773466 ecr 635704631], length 563
+16:10:55.660248 enp0s8 Out IP 10.0.2.18.48006 > 10.0.2.19.8000: Flags [F.], seq 270, ack 2169, win 138, options [nop,nop,TS val 635704632 ecr 3775773466], length 0
+```
+
 
 # 8 - URL filtering and IP address blocking
 
