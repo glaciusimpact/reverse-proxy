@@ -16,3 +16,8 @@ A reverse proxy is useful for a web server because it improves:
 - **Security**: HTTP requests do not go directly to the web server but are filtered by their URL beforehand (OSI layer 7 filtering). The reverse proxy can also block certain IP addresses, just like a firewall (OSI layer 3 filtering).
 - **Performance**: The web server isn't overloaded with unnecessary or malicious requests.
 
+Here is the commun situation of a reverse proxy usage:
+
+ ![Reverse proxy diagram](images/reverse_proxy_commun_usage.png)
+
+ 
