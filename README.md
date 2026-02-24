@@ -34,7 +34,7 @@ The architecture and the IP addresses of the test lab will be as follow:
 
 We install the reverse proxy server called Caddy on an Ubuntu server equipped with 2 separate network interfaces. I chose this software since it is very simple to configure. Its documentation can be found at https://caddyserver.com/docs/install.
 
-Following commands are to copy paste to the bash interpreter of a Ubuntu server:
+Following commands are to copy paste to the bash interpreter of the Ubuntu server:
  
 ```
 sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
@@ -91,6 +91,8 @@ PING 10.0.2.19 (10.0.2.19) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.242/0.245/0.248/0.003 ms
 tcm@server:~$
 ```
+
+-> There are 2 interfaces (enp0s3 for 192.168.1.0/24 and 10.0.2.0/24) and ping to web server is OK.
 
 # 3 - Checking Caddy is running
 
@@ -166,6 +168,8 @@ tcm@server:~$ cat /etc/caddy/Caddyfile
 # https://caddyserver.com/docs/caddyfile
 tcm@server:~$ 
 ```
+
+-> Prowy server is running ("active (running)") but the default configuration must be modified since it is configured as a web server.
 
 # 4 - Configuring Caddy as a reverse proxy
 
